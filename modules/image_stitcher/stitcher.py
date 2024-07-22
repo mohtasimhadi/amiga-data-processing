@@ -22,4 +22,4 @@ def recursive_stitching(images, out_dir, stitching_factor = 32, iteration = 1):
     if stitching_factor / 2 == 1:
         return recursive_stitching(rec_images, stitching_factor, iteration=iteration+1)
     else:
-        return recursive_stitching(rec_images, stitching_factor/2, iteration=iteration+1)
+        return recursive_stitching(rec_images, int(stitching_factor/2), iteration=iteration+1)
