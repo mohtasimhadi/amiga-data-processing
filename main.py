@@ -18,4 +18,4 @@ for filename in images_directories:
             print(f"Loaded: {img_path}")
 print("End of loading!")
 
-recursive_stitching(images)
+recursive_stitching(images, out_dir=output_direction, stitching_factor=64)
