@@ -1,8 +1,8 @@
 import os, cv2
 from modules.image_stitcher.stitcher import recursive_stitching
 
-output_direction = "out_2"
-input_direction = "out"
+output_direction = "out"
+input_direction = "frames"
 
 images = []
 images_directories = os.listdir(input_direction)
@@ -17,4 +17,4 @@ for filename in images_directories:
             print(f"Loaded: {img_path}")
 print("End of loading!")
 
-recursive_stitching(images, out_dir=output_direction, stitching_factor=16)
+recursive_stitching(images, out_dir=output_direction)
