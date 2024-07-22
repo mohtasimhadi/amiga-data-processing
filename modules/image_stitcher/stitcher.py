@@ -2,7 +2,7 @@ import cv2
 from stitching import AffineStitcher
 
 def stitch_image(images):
-    stitcher = AffineStitcher(detector='sift', confidence_threshold=0.01)
+    stitcher = AffineStitcher(detector='sift', confidence_threshold=0.1)
     return stitcher.stitch(images)
 
 def recursive_stitching(images, out_dir, stitching_factor = 32, iteration = 1):
@@ -15,10 +15,13 @@ def recursive_stitching(images, out_dir, stitching_factor = 32, iteration = 1):
         if i + stitching_factor > len(images):
             stitched_image = stitch_image(images[i:])
             rec_images.append(stitched_image)
-        stitched_image = stitch_image(images[i:i+stitching_factor])
-        rec_images.append(stitched_image)
-        cv2.imwrite(f"{out_dir}/iteration_{iteration}_image: {i}:{i+stitching_factor}.png", stitched_image)
-        print(f"Iteration: {iteration}\tImage: {i}:{i+stitching_factor}")
+            cv2.imwrite(f"{out_dir}/iteration_{iteration}_image: {i}:{len(images)}.png", stitched_image)
+            print(f"Iteration: {iteration}\tImage: {i}:{len(images)}")
+        else:
+            stitched_image = stitch_image(images[i:i+stitching_factor])
+            rec_images.append(stitched_image)
+            cv2.imwrite(f"{out_dir}/iteration_{iteration}_image: {i}:{i+stitching_factor}.png", stitched_image)
+            print(f"Iteration: {iteration}\tImage: {i}:{i+stitching_factor}")
     if stitching_factor / 2 == 1:
         return recursive_stitching(rec_images, stitching_factor, iteration=iteration+1)
     else:
