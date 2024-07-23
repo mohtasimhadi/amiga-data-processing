@@ -1,9 +1,11 @@
 import cv2
+import matplotlib.pyplot as plt
 from stitching import AffineStitcher
 
 def stitch_image(images):
     stitcher = AffineStitcher(confidence_threshold=0.5)
-    return stitcher.stitch(images)
+    stitched_image = stitcher.stitch(images)
+    return stitched_image
 
 def recursive_stitching(images, out_dir, stitching_factor = 32, iteration_factor = 16, epoch = 1):
     print(f"Total # of images in iteration {epoch}: {len(images)}")
